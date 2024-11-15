@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <title>Authentication</title>
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <link rel="stylesheet" href="">
+    </head>
+    <body>
+        <h1>Authentication</h1>
+
+        {% if is_valid %}
+        <h2> Welcome {{ name }}</h2>
+        <button type="submit"><a href="/signout"> SignOut </a></button>
+        <button type="submit"><a href="/table"> Your Table </a></button>
+        {% else %}
+        <h2> Welcome Guest </h2>
+        <button type="submit"><a href="/login"> Login </a></button>
+        <button type="submit"><a href="/register"> Register </a></button>
+        {% endif %}
+
+        <script src="" async defer></script>
+    </body>
+</html>

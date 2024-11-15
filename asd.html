@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Modal with Draggable Elements</title>
+  <style>
+    /* Modal Background */
+    .modal {
+      display: none; /* Hidden by default */
+      position: fixed; /* Stay in place */
+      z-index: 1; /* Sit on top */
+      left: 0;
+      top: 0;
+      width: 100%;
+      height: 100%;
+      background-color: rgba(0, 0, 0, 0.4); /* Black background with opacity */
+    }
+
+    /* Modal Content Box */
+    .modal-content {
+      background-color: #fefefe;
+      margin: 15% auto;
+      padding: 20px;
+      border: 1px solid #888;
+      width: 80%;
+    }
+
+    /* Close Button */
+    .close {
+      color: #aaa;
+      float: right;
+      font-size: 28px;
+      font-weight: bold;
+    }
+
+    .close:hover,
+    .close:focus {
+      color: black;
+      text-decoration: none;
+      cursor: pointer;
+    }
+
+    /* Example issue styling */
+    .issue {
+      padding: 10px;
+      margin: 5px;
+      background-color: #d3d3d3;
+      cursor: pointer;
+      border-radius: 4px;
+    }
+  </style>
+</head>
+<body>
+
+  <h2>Click any issue to open the modal</h2>
+  
+  <!-- Example draggable issues -->
+  <div id="issue1" class="issue" draggable="true" ondragstart="drag(event)">Issue 1</div>
+  <div id="issue2" class="issue" draggable="true" ondragstart="drag(event)">Issue 2</div>
+  <div id="issue3" class="issue" draggable="true" ondragstart="drag(event)">Issue 3</div>
+
+  <!-- Modal Structure -->
+  <div id="myModal" class="modal">
+    <div class="modal-content">
+      <span class="close">&times;</span>
+      <p>This is a modal pop-up window. You can only interact with this window.</p>
+      <button>OK</button>
+    </div>
+  </div>
+
+  <script>
+    // Get modal and close button
+    const modal = document.getElementById("myModal");
+    const closeButton = document.querySelector(".close");
+
+    // Show modal when any issue div is clicked
+    document.querySelectorAll(".issue").forEach(issue => {
+      issue.onclick = function() {
+        modal.style.display = "block";
+      }
+    });
+
+    // Close modal when "X" is clicked
+    closeButton.onclick = function() {
+      modal.style.display = "none";
+    }
+
+    // Close modal when clicking outside of modal content
+    window.onclick = function(event) {
+      if (event.target === modal) {
+        modal.style.display = "none";
+      }
+    }
+  </script>
+
+</body>
+</html>

@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Issue Tracker</title>
+  <link rel="stylesheet" href="static/css/table/index_table_styles.css">
+  <script>
+    function allowDrop(event) {
+      event.preventDefault();
+    }
+
+    function drag(event) {
+      event.dataTransfer.setData("text", event.target.id);
+    }
+
+    function drop(event, status) {
+      event.preventDefault();
+      var issueId = event.dataTransfer.getData("text");
+      var issueElement = document.getElementById(issueId);
+      event.target.appendChild(issueElement);
+
+      // Make an AJAX request to update the status
+      var xhr = new XMLHttpRequest();
+      xhr.open("POST", "{% url 'update_issue_status' %}", true);
+      xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
+      xhr.setRequestHeader("X-CSRFToken", "{{ csrf_token }}");
+      xhr.send("id=" + issueId + "&status=" + status);
+    }
+  </script>
+
+  <style>
+    ul {
+      list-style-type: none;
+      margin: 0;
+      padding: 0;
+      overflow: hidden;
+      background-color: #333;
+    }
+  
+    li {
+      float: left;
+    }
+  
+    li a {
+      display: block;
+      color: white;
+      text-align: center;
+      padding: 14px 16px;
+      text-decoration: none;
+    }
+  
+    li a:hover {
+      background-color: #111;
+    }
+    </style>
+  
+    <ul>
+      <li><a class="active" href="/">Home</a></li>
+      <li><a class="active" href="/signout">SignOut</a></li>
+      <li><a class="active" href="/add">Add New Issue</a></li>
+  </ul>
+
+</head>
+<body>
+    {% block nav_bar %}
+    {% endblock nav_bar %}
+    <div class="board">
+        <div class="column" id="todo" ondrop="drop(event, 'To Do')" ondragover="allowDrop(event)">
+            <h2>To Do</h2>
+            {% for issue in result %}
+                {% if issue.status == "To Do" %}
+                    <div id="{{ issue.id }}" class="issue" draggable="true" onclick="location.href='/issue/{{ issue.id }}';" ondragstart="drag(event)">{{ issue.title }}</div>
+                {% endif %}
+            {% endfor %}
+        </div>
+        <div class="column" id="in-progress" ondrop="drop(event, 'In Progress')" ondragover="allowDrop(event)">
+            <h2>In Progress</h2>
+            {% for issue in result %}
+                {% if issue.status == "In Progress" %}
+                    <div id="{{ issue.id }}" class="issue" draggable="true" onclick="location.href='/issue/{{ issue.id }}';" ondragstart="drag(event)">{{ issue.title }}</div>
+                {% endif %}
+            {% endfor %}
+        </div>
+        <div class="column" id="in-review" ondrop="drop(event, 'In Review')" ondragover="allowDrop(event)">
+            <h2>In Review</h2>
+            {% for issue in result %}
+                {% if issue.status == "In Review" %}
+                        <div id="{{ issue.id }}" class="issue" draggable="true" onclick="location.href='/issue/{{ issue.id }}';" ondragstart="drag(event)">{{ issue.title }}</div>
+                {% endif %}
+            {% endfor %}
+        </div>
+        <div class="column" id="done" ondrop="drop(event, 'Done')" ondragover="allowDrop(event)">
+            <h2>Done</h2>
+            {% for issue in result %}
+                {% if issue.status == "Done" %}
+                        <div id="{{ issue.id }}" class="issue" draggable="true" onclick="location.href='/issue/{{ issue.id }}';" ondragstart="drag(event)">{{ issue.title }}</div>
+                {% endif %}
+            {% endfor %}
+        </div>
+    </div>
+</body>
+</html>
