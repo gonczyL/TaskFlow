@@ -43,21 +43,25 @@ li a:hover {
     <h2>Update new issue</h2>
     <h2>current_issue</h2>
     <h2>{{ current_issue }}</h2>
-    <form action="/issue/{{current_issue.id}}" method="POST">
-        {% csrf_token %}
         <label for="title">title</label>
         <input type="title" id="title" name="title" value={{ current_issue.title }}>
         <label for="description">description</label>
         <input type="description" id="description" name="description" value={{ current_issue.description }}>
         <label for="logged_time">Logged time:</label>
         <input type="logged_time" id="logged_time" name="logged_time" value={{ current_issue.logged_time }}>
-
-        <button type="Save">Save</button>
-
     </form>
     </div>
-    <button onclick="window.history.back()">Cancel</button>
-    <button onclick="">Delete</button>
+    <form method="POST" action="/issue/{{current_issue.id}}">
+        {% csrf_token %}
+        <button type="submit" name="action" value="save">Save</button>
+        <button type="submit" name="action" value="delete_issue" onclick="return confirmDelete()">Delete Issue</button>
+        <button onclick="window.history.back()">Cancel</button>
+    </form>
+    <script>
+        function confirmDelete() {
+            return confirm("Are you sure you want to delete this?");
+        }
+    </script>
 </body>
 
 </html>

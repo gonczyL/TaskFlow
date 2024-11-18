@@ -124,21 +124,28 @@ def update_issue(request, id):
     issue_q = Issue.objects.filter(id = id)
     
     if request.method == "POST":
-        new_title = request.POST["title"]
-        new_description = request.POST["description"]
-        new_logged_time = request.POST["logged_time"]
-        
-        print(new_title)
-        print(new_description)
-        print(new_logged_time)
-        
+        action = request.POST.get('action') 
         issue = issue_q[0]
+        print(action)
+        if action == "save":
+            new_title = request.POST["title"]
+            new_description = request.POST["description"]
+            new_logged_time = request.POST["logged_time"]
+            
+            print(new_title)
+            print(new_description)
+            print(new_logged_time)
+            
+            issue.title = new_title
+            issue.description = new_description
+            issue.logged_time = new_logged_time
+            issue.save()
+            print("Issue updated")
+            return redirect("table")
         
-        issue.title = new_title
-        issue.description = new_description
-        issue.logged_time = new_logged_time
-        issue.save()
-        
-        return redirect("table")
+        if action == "delete_issue":
+            issue.delete()
+            print("Issue sucessfully deleted")
+            return redirect("table")
     
     return render(request, "table/update.html", {"current_issue": issue_q[0]})
