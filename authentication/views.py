@@ -121,12 +121,12 @@ def update_issue_status(request):
 
 @login_required(login_url="my_login")
 def update_issue(request, id):
-    issue_q = Issue.objects.filter(id = id)
-    
+    issue_queryset = Issue.objects.filter(id = id)
+    print(issue_queryset)
     if request.method == "POST":
         action = request.POST.get('action') 
-        issue = issue_q[0]
-        print(action)
+        issue = issue_queryset[0]
+        print(issue.priorities)
         if action == "save":
             new_title = request.POST["title"]
             new_description = request.POST["description"]
@@ -148,4 +148,4 @@ def update_issue(request, id):
             print("Issue sucessfully deleted")
             return redirect("table")
     
-    return render(request, "table/update.html", {"current_issue": issue_q[0]})
+    return render(request, "table/update.html", {"current_issue": issue_queryset[0]})

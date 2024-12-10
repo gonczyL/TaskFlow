@@ -9,6 +9,15 @@ STATUS = {
     "In Review": "In Review",
     "Done": "Done"
 }
+
+PRIORITIES = {
+        "Highest" : "P1",
+        "High" : "P2",
+        "Medium" : "P3",
+        "Low" : "P4",
+        "Lowest" : "P5",
+    }
+    
 class Issue(models.Model):
     title = models.CharField(max_length=100)
     id = models.AutoField(primary_key=True)
@@ -16,6 +25,7 @@ class Issue(models.Model):
     logged_time = models.FloatField()
     date = models.DateField()
     status = models.CharField(max_length=20, choices=STATUS.items(),  default="To Do")
+    priorities = models.CharField(max_length=20, choices= STATUS.items(), default="Low")
     
     def __str__(self):
         return f"{self.title}-{self.id}"
