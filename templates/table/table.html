@@ -29,80 +29,114 @@
   </script>
 
   <style>
-
+    /* General body styles */
     body {
-      font-family: Arial, sans-serif;
-      background-color: #f4f4f9;
-      margin: 0;
-      padding: 20px;
-  }
-  
-  /* Board container */
-  .board {
-      display: flex;
-      justify-content: space-around;
-      gap: 15px;
-      padding: 10px;
-  }
-  
-  .column {
-      flex: 1;
-      background-color: #ffffff;
-      border: 2px solid #ccc;
-      border-radius: 8px;
-      padding: 15px;
-      box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-      min-height: 300px;
-  }
-  
-  .column h2 {
-      text-align: center;
-      color: #333;
-      font-size: 24px;
-      margin-bottom: 15px;
-  }
-  
-  .issue {
-      background-color: #e0f7fa;
-      border-left: 4px solid #00acc1;
-      padding: 10px;
-      margin: 10px 0;
-      border-radius: 4px;
-      cursor: pointer;
-      font-size: 16px;
-      box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-  }
-  
-  #todo .issue {
-      border-left-color: #f44336;
-  }
-  
-  #in-progress .issue {
-      border-left-color: #ff9800;
-  }
-  
-  #in-review .issue {
-      border-left-color: #3f51b5;
-  }
-  
-  #done .issue {
-      border-left-color: #4caf50;
-  }
-  
-  .column {
-      transition: background-color 0.2s;
-  }
-  
-  .column.drag-over {
-      background-color: #f0f0f0;
-  }
-  
-  .issue:hover {
-      background-color: #b2ebf2;
-      transition: background-color 0.3s;
-  }
-  
-    </style>
+        font-family: Arial, sans-serif;
+        background-color: #f4f4f9;
+        margin: 0;
+        padding: 20px;
+    }
+    
+    /* Navigation bar */
+    ul {
+        list-style-type: none;
+        margin: 0;
+        padding: 0;
+        overflow: hidden;
+        background-color: #006d67;
+        border-radius: 5px;
+    }
+    
+    li {
+        float: left;
+    }
+    
+    li a {
+        display: block;
+        color: white;
+        text-align: center;
+        padding: 14px 16px;
+        text-decoration: none;
+    }
+    
+    li a:hover {
+        background-color: #004d4a;
+    }
+    
+    li a.active {
+        background-color: #004d4a;
+    }
+    
+    /* Board container */
+    .board {
+        display: flex;
+        justify-content: space-around;
+        gap: 15px;
+        padding: 10px;
+    }
+    
+    /* Column styles */
+    .column {
+        flex: 1;
+        background-color: #ffffff;
+        border: 2px solid #ccc;
+        border-radius: 8px;
+        padding: 15px;
+        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        min-height: 300px;
+    }
+    
+    .column h2 {
+        text-align: center;
+        color: #333;
+        font-size: 24px;
+        margin-bottom: 15px;
+    }
+    
+    /* Issue card styles */
+    .issue {
+        background-color: #e0f7fa;
+        border-left: 4px solid #00acc1;
+        padding: 10px;
+        margin: 10px 0;
+        border-radius: 4px;
+        cursor: pointer;
+        font-size: 16px;
+        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    }
+    
+    /* Different statuses */
+    #todo .issue {
+        border-left-color: #f44336;
+    }
+    
+    #in-progress .issue {
+        border-left-color: #ff9800;
+    }
+    
+    #in-review .issue {
+        border-left-color: #3f51b5;
+    }
+    
+    #done .issue {
+        border-left-color: #4caf50;
+    }
+    
+    /* Drag and drop styles */
+    .column {
+        transition: background-color 0.2s;
+    }
+    
+    .column.drag-over {
+        background-color: #f0f0f0;
+    }
+    
+    .issue:hover {
+        background-color: #b2ebf2;
+        transition: background-color 0.3s;
+    }
+      
+  </style>
   
     <ul>
       <li><a class="active" href="/">Home</a></li>
