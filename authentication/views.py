@@ -125,16 +125,17 @@ def update_issue(request, id):
     print(issue_queryset)
     if request.method == "POST":
         action = request.POST.get('action') 
+        print(action)
         issue = issue_queryset[0]
-        print(issue.priorities)
         if action == "save":
-            new_title = request.POST["title"]
-            new_description = request.POST["description"]
-            new_logged_time = request.POST["logged_time"]
-            
+            print(request.POST)
+            new_title = request.POST.get('title')
             print(new_title)
+            new_description = request.POST.get('description')
             print(new_description)
+            new_logged_time = request.POST.get('logged_time')
             print(new_logged_time)
+
             
             issue.title = new_title
             issue.description = new_description

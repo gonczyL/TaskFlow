@@ -21,8 +21,8 @@ PRIORITIES = {
 class Issue(models.Model):
     title = models.CharField(max_length=100)
     id = models.AutoField(primary_key=True)
-    description = models.TextField()
-    logged_time = models.FloatField()
+    description = models.CharField(max_length=300)
+    logged_time = models.FloatField(default=0)
     date = models.DateField()
     status = models.CharField(max_length=20, choices=STATUS.items(),  default="To Do")
     priorities = models.CharField(max_length=20, choices= STATUS.items(), default="Low")

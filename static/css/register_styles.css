@@ -49,6 +49,7 @@ body {
 .left-box p {
     font-size: 18px;
     color: white; /* White color for the logo text */
+    border: 3px solid #006d67;
 }
 
 .right-box {
@@ -57,6 +58,7 @@ body {
     display: flex;
     flex-direction: column;
     justify-content: center;
+    border: 3px solid #006d67;
 }
 
 h2 {
