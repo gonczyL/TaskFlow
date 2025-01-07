@@ -89,16 +89,17 @@ def table(request):
 def add_issue(request):
     
     user = request.user
-    
+    users = CustomUser.objects.all()
+    print(users)
     if request.method == "POST":
         # Get the form data
         current_time = datetime.datetime.now().strftime("%Y-%m-%d")
         title = request.POST["title"]
         description = request.POST["description"]        
-        
+        asigned_user = request.POST["dropdownName"]
         issue = Issue()
         
-        issue = Issue.objects.create(title=title, description=description, status="To Do", logged_time=0, date=current_time, )
+        issue = Issue.objects.create(title=title, description=description, status="To Do", logged_time=0, date=current_time, asigned= asigned_user)
         issue.save()
         user.issues.add(issue)
         user.save()
@@ -106,7 +107,7 @@ def add_issue(request):
         
         return redirect("table")
     
-    return render(request, "table/add.html")
+    return render(request, "table/add.html", {'users': users})
 
 @csrf_exempt
 def update_issue_status(request):
@@ -127,24 +128,22 @@ def update_issue_status(request):
 @login_required(login_url="my_login")
 def update_issue(request, id):
     issue_queryset = Issue.objects.filter(id = id)
-    print(issue_queryset)
+    users = CustomUser.objects.all()
     if request.method == "POST":
         action = request.POST.get('action') 
-        print(action)
         issue = issue_queryset[0]
         if action == "save":
-            print(request.POST)
             new_title = request.POST.get('title')
-            print(new_title)
             new_description = request.POST.get('description')
-            print(new_description)
             new_logged_time = request.POST.get('logged_time')
-            print(new_logged_time)
-
+            asigned_user_id = request.POST.get("dropdownName")
+            asigned_user = CustomUser.objects.filter(id = asigned_user_id).first()
+            print(asigned_user)
             
             issue.title = new_title
             issue.description = new_description
             issue.logged_time = new_logged_time
+            issue.asigned = asigned_user
             issue.save()
             print("Issue updated")
             return redirect("table")
@@ -154,4 +153,4 @@ def update_issue(request, id):
             print("Issue sucessfully deleted")
             return redirect("table")
     
-    return render(request, "table/update.html", {"current_issue": issue_queryset[0]})
+    return render(request, "table/update.html", {"current_issue": issue_queryset[0], 'users': users})
