@@ -18,7 +18,6 @@ def my_login(request):
         # Get the form data
         username = request.POST["username"]
         password = request.POST["password"]
-        
         user = CustomUser.objects.filter(username=username, password=password).first()
         users = CustomUser.objects.all()
         if user not in users:
@@ -76,8 +75,14 @@ def signout(request):
 
 @login_required(login_url="my_login")
 def table(request):
-    user = request.user
-    result = user.issues.all()
+    result = []
+    users = request.user
+    
+    all_user_in_same_team = CustomUser.objects.filter(team = users.team)
+    
+    for user in all_user_in_same_team:
+        result.extend(user.issues.all())
+    
     return render(request, "table/table.html", {"result": result})
 
 @login_required(login_url="my_login")

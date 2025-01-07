@@ -26,6 +26,7 @@ class Issue(models.Model):
     date = models.DateField()
     status = models.CharField(max_length=20, choices=STATUS.items(),  default="To Do")
     priorities = models.CharField(max_length=20, choices= STATUS.items(), default="Low")
+    asigned = models.ForeignKey('CustomUser', on_delete=models.DO_NOTHING, null=True, blank=True)
     
     def __str__(self):
         return f"{self.title}-{self.id}"
@@ -38,7 +39,8 @@ class CustomUser(AbstractUser):
     last_name = models.CharField(max_length=100)
     password = models.CharField(max_length=100)
     confirm_password = models.CharField(max_length=100)
-    issues = models.ManyToManyField(Issue, default=[])
+    issues = models.ManyToManyField(Issue, blank=True)
+    team = models.CharField(max_length=20, default="team A")
     
     def __str__(self):
         return self.username
