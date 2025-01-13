@@ -1,0 +1,57 @@
+body {
+    font-family: Arial, sans-serif;
+    background-color: white; /* White background */
+    color: #006d67; /* Dark teal text */
+    margin: 0;
+    padding: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    flex-direction: column; /* Stack elements vertically */
+}
+
+h1, h2 {
+    text-align: center;
+    margin: 10px 0;
+}
+
+h1 {
+    font-size: 2.5em;
+    color: #006d67;
+}
+
+h2 {
+    font-size: 1.8em;
+    color: #006d67;
+}
+
+button {
+    background-color: #006d67; /* Dark teal background */
+    color: white; /* White text */
+    border: none;
+    border-radius: 5px;
+    padding: 10px 20px;
+    font-size: 1em;
+    cursor: pointer;
+    margin: 10px 0; /* Vertical spacing between buttons */
+    display: block;
+    width: 100%;
+    max-width: 300px;
+}
+
+button a {
+    text-decoration: none;
+    color: white;
+    display: block;
+    text-align: center;
+}
+
+button:hover {
+    background-color: #004f50; /* Slightly darker teal for hover */
+    color: white;
+}
+
+button a:hover {
+    color: white;
+}
