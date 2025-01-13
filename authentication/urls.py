@@ -8,7 +8,7 @@ urlpatterns = [
     path("register", views.register, name="register"),
     path("signout", views.signout, name="signout"),
     path("table", views.table, name="table"),
-    path("add", views.add_issue, name="add"),
+    path("issue/add", views.add_issue, name="add"),
     path("update_issue_status/", views.update_issue_status, name='update_issue_status'),
     path("issue/<int:id>", views.update_issue, name="update_issue")
 ]

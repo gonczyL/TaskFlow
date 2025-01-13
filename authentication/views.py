@@ -25,7 +25,6 @@ def my_login(request):
         
         is_valid = True if user is not None else False
                 
-             
         if user is not None:
             login(request, user)
             fname = user.first_name
@@ -49,23 +48,19 @@ def register(request):
         password = request.POST["password"]
         confirm_password = request.POST["confirm_password"]
         
-        
-        if password != confirm_password:
-            messages.error(request, "Passwords do not match.")
-            return redirect("register", {"error": "Passwords do not match."})
-        
-        
-        myUser = CustomUser.objects.create(username=username,
-                                        email=email,
-                                        password=password,
-                                        confirm_password=confirm_password,
-                                        first_name=first_name,
-                                        last_name=last_name)
-        
-        myUser.save()
-                
-        return redirect("my_login")
-    
+        error_message = register_error_message(username, email, password, confirm_password)
+        if error_message == None:
+            myUser = CustomUser.objects.create(username=username,
+                                            email=email,
+                                            password=password,
+                                            confirm_password=confirm_password,
+                                            first_name=first_name,
+                                            last_name=last_name)
+            
+            myUser.save()
+            return redirect("my_login")
+        else:
+            return render(request, "authentication/register.html", {"error": error_message})
     return render(request, "authentication/register.html")
 
 def signout(request):
@@ -90,14 +85,15 @@ def add_issue(request):
     
     user = request.user
     users = CustomUser.objects.all()
-    print(users)
     if request.method == "POST":
         # Get the form data
         current_time = datetime.datetime.now().strftime("%Y-%m-%d")
         title = request.POST["title"]
         description = request.POST["description"]        
-        asigned_user = request.POST["dropdownName"]
+        asigned_user_id = request.POST["dropdownName"]
         issue = Issue()
+        
+        asigned_user = CustomUser.objects.filter(id = asigned_user_id).first()
         
         issue = Issue.objects.create(title=title, description=description, status="To Do", logged_time=0, date=current_time, asigned= asigned_user)
         issue.save()
@@ -154,3 +150,32 @@ def update_issue(request, id):
             return redirect("table")
     
     return render(request, "table/update.html", {"current_issue": issue_queryset[0], 'users': users})
+
+def register_error_message(username, email, password, confirm_password):
+    
+    if password != confirm_password:
+        return "Failed to register try again.\nThe two password is not matching."
+    
+    if not check_password(password):
+        return "Failed to register try again.\nPassword must be at least 8 characters long, must contain at least one uppercase letter, one number."
+    
+    return None
+
+def check_password(password):
+    if len(password) < 8:
+        return False
+    
+    big_char_count = 0
+    num_count = 0
+
+    for char in password:
+        if char.isupper():
+            big_char_count += 1
+        
+        if char.isdigit():
+            num_count += 1
+    
+    if big_char_count > 0 and num_count > 0:
+        return True
+    
+    return False

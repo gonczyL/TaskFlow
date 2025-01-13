@@ -33,12 +33,12 @@
                 </form>
                 <p>Already have an account? <a href="/login">Log in Here</a></p>
             </div>
-            <script>
-                if ("{{ error }}" != ""){
-                    alert("{{ error }}");
-                }
-            </script>
         </div>
+        {% if error %}
+        <script>
+            alert("{{ error|escapejs }}");
+        </script>
+        {% endif %}
     </div>
 </div>
 </body>

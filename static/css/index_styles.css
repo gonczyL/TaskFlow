@@ -1,14 +1,24 @@
 body {
     font-family: Arial, sans-serif;
-    background-color: white; /* White background */
-    color: #006d67; /* Dark teal text */
+    background-color: white;
+    color: #006d67;
     margin: 0;
     padding: 0;
     display: flex;
     justify-content: center;
     align-items: center;
-    height: 100vh;
-    flex-direction: column; /* Stack elements vertically */
+    height: 40vh;
+    flex-direction: column;
+}
+
+p {
+    max-width: 800px;
+    margin: 20px auto;
+    font-size: 1.1em;
+    color: #666;
+    line-height: 1.6;
+    text-align: justify;
+    text-justify: inter-word
 }
 
 h1, h2 {
@@ -27,14 +37,14 @@ h2 {
 }
 
 button {
-    background-color: #006d67; /* Dark teal background */
-    color: white; /* White text */
+    background-color: #006d67;
+    color: white; 
     border: none;
     border-radius: 5px;
     padding: 10px 20px;
     font-size: 1em;
     cursor: pointer;
-    margin: 10px 0; /* Vertical spacing between buttons */
+    margin: 10px 0;
     display: block;
     width: 100%;
     max-width: 300px;
@@ -48,7 +58,7 @@ button a {
 }
 
 button:hover {
-    background-color: #004f50; /* Slightly darker teal for hover */
+    background-color: #004f50;
     color: white;
 }
 
