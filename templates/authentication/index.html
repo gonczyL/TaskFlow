@@ -3,20 +3,22 @@
     <head>
         <meta charset="utf-8">
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
-        <title>Authentication</title>
+        <title>TaskFlow</title>
         <meta name="description" content="">
         <meta name="viewport" content="width=device-width, initial-scale=1">
-        <link rel="stylesheet" href="">
+        <link rel="stylesheet" href="static/css/index_styles.css">         
     </head>
     <body>
-        <h1>Authentication</h1>
-
+        <h1>TaskFlow</h1>
         {% if is_valid %}
         <h2> Welcome {{ name }}</h2>
-        <button type="submit"><a href="/signout"> SignOut </a></button>
         <button type="submit"><a href="/table"> Your Table </a></button>
+        <button type="submit"><a href="/signout"> SignOut </a></button>
         {% else %}
         <h2> Welcome Guest </h2>
+        <p>New generation task and project management  that simplifies and automates workflow management.
+            It helps track tasks and projects efficiently, ensuring each step is completed in the right order and on time.
+            Ideal for teams looking to optimize work processes and boost productivity.</p>
         <button type="submit"><a href="/login"> Login </a></button>
         <button type="submit"><a href="/register"> Register </a></button>
         {% endif %}
