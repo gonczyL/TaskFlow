@@ -7,6 +7,10 @@
     <link rel="stylesheet" href="static/css/register_styles.css">
 </head>
 <body>
+    <div id="custom-alert" style="display: none; position: fixed; top: 50%; left: 50%; transform: translate(-50%, -50%); padding: 20px; background: #f44336; color: white; border-radius: 5px; text-align: center;">
+        <span id="alert-text"></span>
+        <button onclick="closeAlert()" style="margin-top: 10px; padding: 5px 10px; background: white; color: #f44336; border: none; border-radius: 3px; cursor: pointer;">OK</button>
+    </div>
     <div id="background-container">
     <div class="register-container">
         <div class="register-box">
@@ -36,7 +40,16 @@
         </div>
         {% if error %}
         <script>
-            alert("{{ error|escapejs }}");
+            function showAlert(message) {
+                document.getElementById('alert-text').textContent = message;
+                document.getElementById('custom-alert').style.display = 'block';
+            }
+        
+            function closeAlert() {
+                document.getElementById('custom-alert').style.display = 'none';
+            }
+        
+            showAlert("{{ error|escapejs }}");
         </script>
         {% endif %}
     </div>
