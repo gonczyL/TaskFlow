@@ -13,7 +13,6 @@ def home(request):
     return render(request, "authentication/index.html")
 
 def my_login(request):
-
     if request.method == "POST":
         # Get the form data
         username = request.POST["username"]
@@ -38,9 +37,8 @@ def my_login(request):
     return render(request, "authentication/login.html")
 
 def register(request):
-    
     if request.method == "POST":
-        # Get the form data
+
         username = request.POST["username"]
         first_name = request.POST["first_name"]
         last_name = request.POST["last_name"]
@@ -49,6 +47,7 @@ def register(request):
         confirm_password = request.POST["confirm_password"]
         
         error_message = register_error_message(username, email, password, confirm_password)
+        
         if error_message == None:
             myUser = CustomUser.objects.create(username=username,
                                             email=email,
@@ -70,15 +69,15 @@ def signout(request):
 
 @login_required(login_url="my_login")
 def table(request):
-    result = []
-    users = request.user
+    result_issue_list = []
+    current_users = request.user
     
-    all_user_in_same_team = CustomUser.objects.filter(team = users.team)
+    all_user_in_same_team = CustomUser.objects.filter(team = current_users.team)
     
     for user in all_user_in_same_team:
-        result.extend(user.issues.all())
+        result_issue_list.extend(user.issues.all())
     
-    return render(request, "table/table.html", {"result": result})
+    return render(request, "table/table.html", {"result": result_issue_list})
 
 @login_required(login_url="my_login")
 def add_issue(request):
@@ -86,7 +85,7 @@ def add_issue(request):
     user = request.user
     users = CustomUser.objects.all()
     if request.method == "POST":
-        # Get the form data
+        
         current_time = datetime.datetime.now().strftime("%Y-%m-%d")
         title = request.POST["title"]
         description = request.POST["description"]        
