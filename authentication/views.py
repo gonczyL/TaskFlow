@@ -77,7 +77,7 @@ def table(request):
     for user in all_user_in_same_team:
         result_issue_list.extend(user.issues.all())
     
-    return render(request, "table/table.html", {"result": result_issue_list})
+    return render(request, "table/table.html", {"result": result_issue_list, "current_user" : current_users})
 
 @login_required(login_url="my_login")
 def add_issue(request):
@@ -141,11 +141,15 @@ def update_issue(request, id):
             issue.asigned = asigned_user
             issue.save()
             print("Issue updated")
+            print(issue)
             return redirect("table")
         
         if action == "delete_issue":
             issue.delete()
             print("Issue sucessfully deleted")
+            return redirect("table")
+        
+        if action == "cancel":
             return redirect("table")
     
     return render(request, "table/update.html", {"current_issue": issue_queryset[0], 'users': users})

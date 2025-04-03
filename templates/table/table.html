@@ -37,36 +37,7 @@
         padding: 20px;
     }
     
-    /* Navigation bar */
-    ul {
-        list-style-type: none;
-        margin: 0;
-        padding: 0;
-        overflow: hidden;
-        background-color: #006d67;
-        border-radius: 5px;
-    }
-    
-    li {
-        float: left;
-    }
-    
-    li a {
-        display: block;
-        color: white;
-        text-align: center;
-        padding: 14px 16px;
-        text-decoration: none;
-    }
-    
-    li a:hover {
-        background-color: #004d4a;
-    }
-    
-    li a.active {
-        background-color: #004d4a;
-    }
-    
+
     /* Board container */
     .board {
         display: flex;
@@ -135,14 +106,62 @@
         background-color: #D3D3D3;
         transition: background-color 0.3s;
     }
+
+    /* Navigation bar */
+    ul {
+        list-style-type: none;
+        margin: 0;
+        padding: 0;
+        overflow: hidden;
+        background-color: #006d67;
+        border-radius: 5px;
+        display: flex;  /* Use flexbox for alignment */
+    }
+    
+    li {
+        float: none;  /* Remove float */
+    }
+    
+    .nav-left {
+        display: flex;
+        gap: 10px;  /* Space between left items */
+    }
+    
+    .nav-right {
+        display: flex;
+        margin-left: auto; /* Push right-aligned items to the end */
+        gap: 10px;  /* Space between right items */
+    }
+    
+    li a {
+        display: block;
+        color: white;
+        text-align: center;
+        padding: 14px 16px;
+        text-decoration: none;
+    }
+    
+    li a:hover {
+        background-color: #004d4a;
+    }
+    
+    li a.active {
+        background-color: #004d4a;
+    }
+    
       
   </style>
   
-    <ul>
-      <li><a class="active" href="/">Home</a></li>
-      <li><a class="active" href="/signout">SignOut</a></li>
-      <li><a class="active" href="/add">Add New Issue</a></li>
-  </ul>
+  <ul>
+    <div class="nav-left">
+        <li><a class="active" href="/">Home</a></li>
+        <li><a class="active" href="/add">Add New Issue</a></li>
+    </div>
+    <div class="nav-right">
+        <li><a class="active">{{ current_user }}</a></li>
+        <li><a class="active" href="/signout">SignOut</a></li>
+    </div>
+</ul> 
 
 </head>
 <body>

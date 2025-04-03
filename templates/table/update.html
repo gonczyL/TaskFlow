@@ -127,8 +127,8 @@
 </style>
 <ul>
     <li><a class="active" href="/">Home</a></li>
-    <li><a class="active" href="/signout">SignOut</a></li>
     <li><a class="active" href="/add">Add New Issue</a></li>
+    <li><a class="active" href="/signout">SignOut</a></li>
 </ul>
 
 <!-- navigation bar end -->
@@ -144,7 +144,7 @@
         <input type="text" id="description" name="description" value={{ current_issue.description }}>
         <label for="logged_time">Logged time:</label>
         <input type="text" id="logged_time" name="logged_time" value={{ current_issue.logged_time }}>
-        <label for="asigned">Asigned user</label>
+        <label for="asigned">Asigned user: {{ current_issue.asigned }}</label>
         <select name="dropdownName" id="dropdownId">
             {% for user in users %}
                 <option value="{{ user.id }}">{{ user.username }}</option>
@@ -155,7 +155,7 @@
     </div>
         <button type="submit" name="action" value="save">Save</button>
         <button type="submit" name="action" value="delete_issue" onclick="return confirmDelete()">Delete Issue</button>
-        <button onclick="window.history.back()">Cancel</button>
+        <button type="submit" name="action" value="cancel">Cancel</button>
     </form>
     <script>
         function confirmDelete() {
