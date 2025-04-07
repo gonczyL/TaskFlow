@@ -25,7 +25,7 @@ class Issue(models.Model):
     logged_time = models.FloatField(default=0)
     date = models.DateField()
     status = models.CharField(max_length=20, choices=STATUS.items(),  default="To Do")
-    priorities = models.CharField(max_length=20, choices= STATUS.items(), default="Low")
+    priorities = models.CharField(max_length=20, choices= PRIORITIES.items(), default="Low")
     asigned = models.ForeignKey('CustomUser', on_delete=models.DO_NOTHING, null=True, blank=True)
     
     def __str__(self):
