@@ -5,6 +5,7 @@
   <title>Issue Tracker</title>
   <link rel="stylesheet" href="static/css/table/index_table_styles.css">
   <script>
+    
     function allowDrop(event) {
       event.preventDefault();
     }
@@ -19,13 +20,13 @@
       var issueElement = document.getElementById(issueId);
       event.target.appendChild(issueElement);
 
-      // Make an AJAX request to update the status
       var xhr = new XMLHttpRequest();
       xhr.open("POST", "{% url 'update_issue_status' %}", true);
       xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
       xhr.setRequestHeader("X-CSRFToken", "{{ csrf_token }}");
       xhr.send("id=" + issueId + "&status=" + status);
     }
+
   </script>
 
   <style>
