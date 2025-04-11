@@ -11,11 +11,11 @@ STATUS = {
 }
 
 PRIORITIES = {
-        "Highest" : "P1",
-        "High" : "P2",
-        "Medium" : "P3",
-        "Low" : "P4",
-        "Lowest" : "P5",
+        "Highest" : "Highest",
+        "High" : "High",
+        "Medium" : "Medium",
+        "Low" : "Low",
+        "Lowest" : "Lowest",
     }
     
 class Issue(models.Model):
