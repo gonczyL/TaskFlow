@@ -123,7 +123,8 @@ def update_issue_status(request):
 @login_required(login_url="my_login")
 def update_issue(request, id):
     issue_queryset = Issue.objects.filter(id = id)
-    users = CustomUser.objects.all()
+    curen_user_team = request.user.team
+    users = CustomUser.objects.filter(team = curen_user_team)
     if request.method == "POST":
         action = request.POST.get('action') 
         issue = issue_queryset[0]
