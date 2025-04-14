@@ -5,7 +5,6 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Log In Form</title>
 
-<!-- navigation bar -->
 <style>
     body {
         font-family: Arial, sans-serif;
@@ -75,7 +74,6 @@
     <li><a class="active" href="/signout">SignOut</a></li>
 </ul>
 
-<!-- navigation bar end -->
 </head>
 <body>
     <h2>Update issue</h2>
@@ -88,7 +86,7 @@
         <input type="text" id="description" name="description" value={{ current_issue.description }}>
         <label for="logged_time">Logged time:</label>
         <input type="text" id="logged_time" name="logged_time" value={{ current_issue.logged_time }}>
-        <label for="asigned">Asigned user: {{ current_issue.asigned }}</label>
+        <label for="asigned">Assigned user: {{ current_issue.assigned }}</label>
         <select name="dropdownName" id="dropdownId">
             {% for user in users %}
                 <option value="{{ user.id }}">{{ user.username }}</option>

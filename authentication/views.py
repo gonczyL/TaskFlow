@@ -81,24 +81,25 @@ def table(request):
 
 @login_required(login_url="my_login")
 def add_issue(request):
-    
+    curen_user_team = request.user.team
+    users = CustomUser.objects.filter(team = curen_user_team)
     user = request.user
-    users = CustomUser.objects.all()
+
     if request.method == "POST":
         
         current_time = datetime.datetime.now().strftime("%Y-%m-%d")
         title = request.POST["title"]
         description = request.POST["description"]        
-        asigned_user_id = request.POST["dropdownName"]
+        assigned_user_id = request.POST["dropdownName"]
+        
+        
+        assigned_user = CustomUser.objects.filter(id = assigned_user_id).first()
         issue = Issue()
         
-        asigned_user = CustomUser.objects.filter(id = asigned_user_id).first()
-        
-        issue = Issue.objects.create(title=title, description=description, status="To Do", logged_time=0, date=current_time, asigned= asigned_user)
+        issue = Issue.objects.create(title=title, description=description, status="To Do", logged_time=0, date=current_time, assigned= assigned_user)
         issue.save()
         user.issues.add(issue)
         user.save()
-        messages.success(request, "Record added successfully.")
         
         return redirect("table")
     
