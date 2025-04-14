@@ -80,10 +80,8 @@ def table(request):
     return render(request, "table/table.html", {"result": result_issue_list, "current_user" : current_users})
 
 @login_required(login_url="my_login")
-def add_issue(request):
-    curen_user_team = request.user.team
-    users = CustomUser.objects.filter(team = curen_user_team)
-    user = request.user
+def add_new_issueS(request):
+    users = get_users(request)
 
     if request.method == "POST":
         
@@ -92,18 +90,28 @@ def add_issue(request):
         description = request.POST["description"]        
         assigned_user_id = request.POST["dropdownName"]
         
-        
         assigned_user = CustomUser.objects.filter(id = assigned_user_id).first()
-        issue = Issue()
-        
-        issue = Issue.objects.create(title=title, description=description, status="To Do", logged_time=0, date=current_time, assigned= assigned_user)
-        issue.save()
+        issue = make_new_issue(current_time, title, description, assigned_user)
+
+        user = request.user
         user.issues.add(issue)
         user.save()
         
         return redirect("table")
     
     return render(request, "table/add.html", {'users': users})
+
+def get_users(request):
+    curen_user_team = request.user.team
+    users = CustomUser.objects.filter(team = curen_user_team)
+    return users
+
+def make_new_issue(current_time, title, description, assigned_user):
+    issue = Issue()
+    issue = Issue.objects.create(title=title, description=description, status="To Do", logged_time=0, date=current_time, assigned= assigned_user)
+    issue.save()
+
+    return issue
 
 @csrf_exempt
 def update_issue_status(request):
